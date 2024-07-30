@@ -2,8 +2,12 @@
 
 namespace App\Services;
 
+require '../../src/Models/Produto.php';
+require '../../src/Repositories/ProdutoRepository.php';
+
 use App\Repositories\ProdutoRepository;
 use App\Models\Produto;
+
 class ProdutoService {
     private $repository;
 
@@ -20,15 +24,33 @@ class ProdutoService {
         return $this->repository->buscarProdutos($nome, $descricao);
     }
 
-    public function cadastrarProduto($produto) {
+    public function cadastrarProduto($data) {
+        $produto = new Produto(
+            $data['nome'],
+            $data['descricao'],
+            $data['preco'],
+            $data['data_validade'],
+            $data['imagem'],
+            $data['categoria_id']
+        );
+        
         return $this->repository->cadastrarProduto($produto);
     }
 
-    public function editarProduto($id, $produto) {
+    public function editarProduto($id, $data) {
+        $produto = new Produto(
+            $data['nome'],
+            $data['descricao'],
+            $data['preco'],
+            $data['data_validade'],
+            $data['imagem'],
+            $data['categoria_id']
+        );
+        
         $this->repository->editarProduto($id, $produto);
     }
+
     public function excluirProduto($id) {
         $this->repository->excluirProduto($id);
     }
-
 }

@@ -29,6 +29,11 @@ class ComposerStaticInited2c6b87fa6f688d74b047ebde2d63f7
             'Psr\\Container\\' => 14,
             'PhpOption\\' => 10,
         ),
+        'N' => 
+        array (
+            'Nyholm\\Psr7\\' => 12,
+            'Nyholm\\Psr7Server\\' => 18,
+        ),
         'M' => 
         array (
             'Mende\\Desafio\\' => 14,
@@ -86,6 +91,14 @@ class ComposerStaticInited2c6b87fa6f688d74b047ebde2d63f7
         'PhpOption\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
+        'Nyholm\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nyholm/psr7/src',
+        ),
+        'Nyholm\\Psr7Server\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nyholm/psr7-server/src',
         ),
         'Mende\\Desafio\\' => 
         array (

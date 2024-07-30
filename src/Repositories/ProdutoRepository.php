@@ -1,5 +1,8 @@
 <?php
 namespace App\Repositories;
+
+require '../../src/Models/Produto.php';
+
 use App\Models\Produto;
 use PDO;
 
@@ -25,19 +28,46 @@ Class ProdutoRepository {
     }
 
     public function cadastrarProduto($produto) {
-        $stmt = $this->db->prepare("INSERT INTO produto (nome, descricao, preco, data_validade, imagem, categoria_id) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$produto->nome, $produto->descricao, $produto->preco, $produto->data_validade, $produto->imagem, $produto->categoria_id]);
-        return $this->db->lastInsertId();
+        try {
+            $stmt = $this->db->prepare("INSERT INTO produto (nome, descricao, preco, data_validade, imagem, categoria_id) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->execute([
+                $produto->getNome(),
+                $produto->getDescricao(),
+                $produto->getPreco(),
+                $produto->getDataValidade(),
+                $produto->getImagem(),
+                $produto->getCategoriaId()
+            ]);
+            return $this->db->lastInsertId();
+        } catch (\PDOException $e) {
+            throw new \Exception("Erro ao cadastrar produto: " . $e->getMessage());
+        }
     }
 
     public function editarProduto($id, $produto) {
-        $stmt = $this->db->prepare("UPDATE produto SET nome = ?, descricao = ?, preco = ?, data_validade = ?, imagem = ?, categoria_id = ? WHERE id = ?");
-        $stmt->execute([$produto->nome, $produto->descricao, $produto->preco, $produto->data_validade, $produto->imagem, $produto->categoria_id, $id]);
+        try {
+            $stmt = $this->db->prepare("UPDATE produto SET nome = ?, descricao = ?, preco = ?, data_validade = ?, imagem = ?, categoria_id = ? WHERE id = ?");
+            $stmt->execute([
+                $produto->getNome(),
+                $produto->getDescricao(),
+                $produto->getPreco(),
+                $produto->getDataValidade(),
+                $produto->getImagem(),
+                $produto->getCategoriaId(),
+                $id
+            ]);
+        } catch (\PDOException $e) {
+            throw new \Exception("Erro ao editar produto: " . $e->getMessage());
+        }
     }
 
     public function excluirProduto($id) {
-        $stmt = $this->db->prepare("DELETE FROM produto WHERE id = ?");
-        $stmt->execute([$id]);
+        try {
+            $stmt = $this->db->prepare("DELETE FROM produto WHERE id = ?");
+            $stmt->execute([$id]);
+        } catch (\PDOException $e) {
+            throw new \Exception("Erro ao excluir produto: " . $e->getMessage());
+        }
     }
     
 }
